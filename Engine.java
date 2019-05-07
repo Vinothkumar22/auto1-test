@@ -1,5 +1,3 @@
-package com.vanhack.hackerrank.work_hours;
-
 public class Engine extends Object {
 	private String type;
 	
