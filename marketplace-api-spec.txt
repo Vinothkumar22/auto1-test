@@ -1,0 +1,76 @@
+1. Creating a lot
+POST: market-place/api/v1/sellers/{sellerId}/lots
+Req Body: 
+{
+  "weight": Double,
+  "origin": String,
+  "harvestDate": Date,
+  "cultivar": String
+}
+Success Response:
+  code: 201 Created
+  Res Body: void
+Failure Response:
+  code: 400 Bad Request
+  Res Body: [{
+    "code": LOT_WEIGHT_LESS_THAN_MIN,
+    "message": "The lot's weight is less than the minimum weight required by the marketplace"
+  }]
+----------------------------------------------------------------------------------------------------
+2. Updating a lot
+PUT: market-place/api/v1/sellers/{sellerId}/lots/{lotId}
+Req Body: 
+{
+  "weight": Double,
+  "origin": String,
+  "harvestDate": Date,
+  "cultivar": String
+}
+Success Response:
+  code: 200 Ok
+  Res Body: void
+Failure Response:
+  code: 400 Bad Request
+  Res Body: 
+  [{
+    "code": LOT_WEIGHT_LESS_THAN_MIN,
+    "message": "The lot's weight is less than the minimum weight required by the marketplace"
+  }]
+----------------------------------------------------------------------------------------------------
+3. Create an auction for a lot
+POST: market-place/api/v1/sellers/{sellerId}/lots/{lotId}/auctions
+Req Body: {
+  "createdDate": Date,
+  "cost": Decimal,
+  "duration": Integer
+}
+Success Response:
+  code: 201 Created
+  Res Body: void
+----------------------------------------------------------------------------------------------------
+4. Buyer placing a bid for a lot
+POST: market-place/api/v1/buyers/{buyerId}/auctions/{auctionId}/bids
+Req Body: {
+  "cost": Decimal
+}
+Success Response:
+  code: 201 Created
+  Res Body: void
+----------------------------------------------------------------------------------------------------
+5. Seller to get all the bids for a lot  
+GET: market-place/api/v1/sellers/{sellerId}/lots/{lotId}/bids
+Success Response: 
+  code: 200 Ok
+  Res Body: [{
+    "id": Long,
+    "buyerId": Long,
+    "createdDate": Date,
+    "auctionId": Long,
+    "cost": Decimal
+  }]
+----------------------------------------------------------------------------------------------------
+6. Seller to delete a lot
+DELETE: market-place/api/v1/sellers/{sellerId}/lots/{lotId}
+Success Response:
+  code: 200 Ok
+  Res Body: void
